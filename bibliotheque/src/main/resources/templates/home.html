@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" th:href="@{/assets/images/logos/favicon.png}" />
+    <link rel="stylesheet" th:href="@{/assets/css/styles.min.css}" />
+    <title>Home</title>
+</head>
+<body>
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Start -->
+      <aside class="left-sidebar">
+        <!-- Sidebar scroll-->
+        <div>
+          <div class="brand-logo d-flex align-items-center justify-content-between">
+            <a th:href="@{#}" class="text-nowrap logo-img">
+              <img th:src="@{/assets/images/logos/dark-logo.svg}" width="180" alt="" />
+            </a>
+            <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+              <i class="ti ti-x fs-8"></i>
+            </div>
+          </div>
+          <!-- Sidebar navigation-->
+          <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+            <ul id="sidebarnav">
+                <li class="sidebar-item">
+                    <a class="sidebar-link active" th:href="@{#}" aria-expanded="false">
+                      <span class="hide-menu">Home</span>
+                    </a>
+                </li>
+            </ul>
+          </nav>
+          <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+      </aside>
+          <!--  Sidebar End -->
+            <!--  Main wrapper -->  
+    <div class="body-wrapper">
+      <div class="container-fluid">
+        <div class="container-fluid">
+          <div class="card">
+            <!-- Start top livres -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4" style="width:100% ;">
+                  <h5 class="card-title fw-semibold mb-4">Top Livres</h5>
+
+                  <div class="card"
+                    th:each="livre : ${topLivres}" 
+                    style="float: left;
+                            width: 30%;
+                            margin-right: 2%;
+                            ">
+                            <!-- height: 350px; -->
+                    <div class="card-header">
+                      Top livres
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title" 
+                          th:text="${livre.getTitre()} "></h5>
+                      <p class="card-text">
+                        <span>
+                          Some quick example text to build on the card title and make up the bulk of
+                          the
+                          card's content.
+                        </span><br><br>
+                        <span>
+                          <span><b th:text="'Nombre emprunt :'"></b></span>
+                          <span th:text="${livre.getNombreEmprunt()}"></span>
+                        </span><br>
+                        <span>
+                          <span><b th:text="'Auteur :'"></b></span>
+                          <span th:text="${livre.getAuteur()}"></span>
+                        </span><br>
+                        <span>
+                          <span><b th:text="'Edition :'"></b></span>
+                          <span th:text="${livre.getEdition().getNomEditions()}"></span>
+                        </span><br>
+                      </p>
+                        <a  th:href="@{'/livre/'+${livre.getIdLivre()}+'/exemplaires'}"
+                            class="btn btn-primary">
+                            emprunter
+                        </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End top livres -->
+            <!-- Start List livres -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4" style="width:100% ;">
+                  <h5 class="card-title fw-semibold mb-4">Listes des livres</h5>
+                  <div id="filtre">
+                      <form action="/livres/search" method="get">
+                          <p><input type="text" name="titre" class="search_option" placeholder="Titre"></p>
+                          <p><input type="text" name="auteur" class="search_option" placeholder="Auteur"></p>
+                          <p> Categorie : 
+                              <select name="idCategorie">
+                                  <option value="">
+                                      Categorie
+                                  </option>
+                                  <option th:each="categorie : ${listCategorie}" 
+                                      th:value="${categorie.getIdCategorie()}" 
+                                      th:text="${categorie.getNomCategorie()}">
+                                  </option>
+                              </select>   
+                          </p>
+                          <p><input type="text" name="theme" class="search_option" placeholder="Theme"></p>
+                          <p><input type="text" name="langue" class="search_option" placeholder="Langue"></p>
+                          <p><input type="date" name="dateEdition " class="search_option" placeholder="Date d'édition"></p>
+                          <input type="submit" value="Filtrer">
+                      </form>
+                  </div>
+                  <div class="card"
+                    th:each="livre : ${listLivres}" 
+                    style="float: left;
+                            width: 30%;
+                            margin-right: 2%;
+                            ">
+                            <!-- height: 350px; -->
+                    <div class="card-body">
+                      <h5 class="card-title" 
+                          th:text="${livre.getTitre()} "></h5>
+                      <p class="card-text">
+                        <span>
+                          Some quick example text to build on the card title and make up the bulk of
+                          the
+                          card's content.
+                        </span><br><br>
+                        <span>
+                          <span><b th:text="'Auteur :'"></b></span>
+                          <span th:text="${livre.getAuteur()}"></span>
+                        </span><br>
+                        <span>
+                          <span><b th:text="'Edition :'"></b></span>
+                          <span th:text="${livre.getEdition().getNomEditions()}"></span>
+                        </span><br>
+                      </p>
+                        <a  th:href="@{'/livre/'+${livre.getIdLivre()}+'/exemplaires'}"
+                            class="btn btn-primary">
+                            emprunter
+                        </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End List livres -->
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+</body>
+</html>

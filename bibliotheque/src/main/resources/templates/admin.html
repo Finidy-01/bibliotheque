@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+</head>
+<body>
+    <table border="1px solid">
+        <tr>
+            <td>idExemplaire</td>
+            <td>idMembre</td>
+            <td>TypeMembre</td>
+        </tr>
+        <tr th:each="emprunt : ${listEmprunt}">
+            <td th:text="${emprunt.getExemplaires().getIdExemplaire()}"></td>
+            <td th:text="${emprunt.getMembre().getIdMembre()}"></td>
+            <td th:text="${emprunt.getMembre().getTypeMembre().getNomTypeMembre()}"></td>
+            <td>
+                <a th:href="@{'/admin/emprunt/'+${emprunt.getIdEmprunt()}+'/validate'}">
+                    <button>Valider</button>
+                </a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

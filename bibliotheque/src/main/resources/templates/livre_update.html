@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" th:href="@{/assets/images/logos/favicon.png}" />
+    <link rel="stylesheet" th:href="@{/assets/css/styles.min.css}" />
+    <title>Livre modification</title>
+</head>
+<body>
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Start -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div>
+            <div class="brand-logo d-flex align-items-center justify-content-between">
+                <a th:href="@{#}" class="text-nowrap logo-img">
+                <img th:src="@{/assets/images/logos/dark-logo.svg}" width="180" alt="" />
+                </a>
+                <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                <i class="ti ti-x fs-8"></i>
+                </div>
+            </div>
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                <ul id="sidebarnav">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link active" th:href="@{#}" aria-expanded="false">
+                        <span class="hide-menu">Home</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!--  Sidebar End -->
+        <!-- begin Form -->
+        <div class="body-wrapper">
+        <div class="container-fluid">
+            <div class="container-fluid">
+              <div class="card">
+                <div class="card-body">
+                  <div class="card">
+                    <div class="card-body">
+                      <H4> <b>Modification de livre</b> </H4>
+                      <form action="/livre/update" th:object="${livre}" method="get">
+                        <!-- class="form-control" -->
+                        <input type="hidden" name="idLivre" th:value="${livre.getIdLivre()}" th:field="*{idLivre}">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Titre</label>
+                            <input type="text" name="titre"  class="form-control" placeholder="Titre du livre" th:field="*{titre}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Auteur</label>
+                            <input type="text" name="auteur" class="form-control" placeholder="Auteur" th:field="*{auteur}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Date d'édition</label>
+                            <input type="date" name="titre" class="form-control" placeholder="Date d'édition" th:field="*{dateEdition}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Edition</label>
+                            <select name="idEditions"  class="form-control">
+                                <option th:each='editions : ${listEditions}' 
+                                        th:value="${editions.getIdEditions()}"
+                                        th:text="${editions.getNomEditions()}"
+                                        th:selected="${livre.getEdition().getIdEditions()} == ${editions.getIdEditions()}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Collection</label>
+                            <select name="idCollections" class="form-control" >
+                                <option th:each='collections : ${listCollections}' 
+                                        th:value="${collections.getIdCollections()}"
+                                        th:text="${collections.getNomCollections()}"
+                                        th:selected="${livre.getCollection().getIdCollections()} == ${collections.getIdCollections()}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Theme</label>
+                            <input type="text" name="theme" class="form-control" placeholder="Theme" th:field="*{theme}">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <div style="display: flex;
+                                        padding: 10px;
+                                        width: 15%; "
+                                 th:each="categories : ${listCategories}">
+
+                                <input type="checkbox" class="form-check-input"
+                                         name="idCategories" 
+                                         th:value="${categories.getIdCategorie()}"
+                                         th:checked="${livre.getCategories().contains(categories)}">
+                                <label for="categories" class="form-check-label" 
+                                        style="margin-left: 10px;" 
+                                        th:text="${categories.getNomCategorie()}"></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Langue</label>
+                            <input type="text" name="langue" class="form-control" placeholder="Langue" th:field="*{langue}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">ISBN</label>
+                            <input type="text" name="ISBN" class="form-control" placeholder="ISBN" th:field="*{ISBN}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Couverture</label>
+                            <input type="text" name="couverture" class="form-control" placeholder="Couverture" th:field="*{couverture}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Numero côte</label>
+                            <input type="number" name="numeroCote" class="form-control" placeholder="Numéro côte" th:field="*{numeroCote}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Nombre de pages</label>
+                            <input type="number" name="nbPages" class="form-control" placeholder="Nombre de page" th:field="*{nbPages}" min = 10 max = 1000>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Résumé du livre</label>
+                            <textarea name="resumes" cols="30" rows="10" th:field="*{resumes}" class="form-control" placeholder="Résumé du Livre"></textarea>
+                        </div>
+                        <div class="mb-3">
+                          <button type="submit" class="btn btn-primary">Valider</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+        <!-- end form -->
+    </div>
+</body>
+</html>

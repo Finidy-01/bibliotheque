@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" th:href="@{/assets/images/logos/favicon.png}" />
+    <link rel="stylesheet" th:href="@{/assets/css/styles.min.css}" />
+    <title>Liste membre</title>
+</head>
+<body>
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+
+        <!-- Sidebar Start -->
+        <aside class="left-sidebar">
+        <!-- Sidebar scroll-->
+        <div>
+            <div class="brand-logo d-flex align-items-center justify-content-between">
+            <a th:href="@{#}" class="text-nowrap logo-img">
+                <img th:src="@{/assets/images/logos/dark-logo.svg}" width="180" alt="" />
+            </a>
+            <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                <i class="ti ti-x fs-8"></i>
+            </div>
+            </div>
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+            <ul id="sidebarnav">
+                <li class="sidebar-item">
+                    <a class="sidebar-link active" th:href="@{#}" aria-expanded="false">
+                        <span class="hide-menu">Home</span>
+                    </a>
+                </li>
+            </ul>
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+        </aside>
+        
+        <div class="body-wrapper">
+
+            <div class="container-fluid">
+                <div class="row"
+                    style="padding: 20px 0px 0px 20px;">
+                    <div class="col-lg-8 d-flex align-items-stretch" style="width: 100%;">
+                      <div class="card w-100">
+                        <div class="card-body p-4">
+                          <h5 class="card-title fw-semibold mb-4">Membres</h5>
+                          <div class="table-responsive">
+                            <table class="table text-nowrap mb-0 align-middle">
+                              <thead class="text-dark fs-4">
+                                <tr>
+                                  <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Nom</h6>
+                                  </th>
+                                  <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Identifiant</h6>
+                                  </th>
+                                  <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Date de naissance</h6>
+                                  </th>
+                                  <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Date Inscription</h6>
+                                  </th>
+                                  <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Status</h6>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr th:each="membre : ${lisMembre}">
+                                    <td class="border-bottom-0"  th:text="${membre.getNom()}"></td>
+                                    <td class="border-bottom-0"  th:text="${membre.getIdMembre()}"></td>
+                                    <td class="border-bottom-0"  th:text="${membre.getDateNaissance()}"></td>
+                                    <td class="border-bottom-0"  th:text="${membre.getDateInscription()}"></td>
+                                    <td class="border-bottom-0"  th:text="${membre.getTypeMembre().getNomTypeMembre()}"></td>
+                                    <td>
+                                        <a th:href="@{'membre/'+${membre.getIdMembre()}+'/update_form'}"
+                                        class="btn btn-primary" >
+                                          Modifer
+                                        </a>
+                                    </td>
+                                </tr>                        
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+        </div>
+    </div>
+</body>
+</html>

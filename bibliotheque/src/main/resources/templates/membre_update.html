@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" th:href="@{/assets/images/logos/favicon.png}" />
+    <link rel="stylesheet" th:href="@{/assets/css/styles.min.css}" />
+    <title>Membre modification</title>
+</head>
+<body>
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+        <!-- Sidebar scroll-->
+        <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+            <a th:href="@{#}" class="text-nowrap logo-img">
+            <img th:src="@{/assets/images/logos/dark-logo.svg}" width="180" alt="" />
+            </a>
+            <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+            </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+            <ul id="sidebarnav">
+                <li class="sidebar-item">
+                    <a class="sidebar-link active" th:href="@{#}" aria-expanded="false">
+                    <span class="hide-menu">Home</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+    </aside>
+    <!--  Sidebar End -->
+    <div class="body-wrapper">
+        <div class="container-fluid">
+            <div class="container-fluid">
+              <div class="card">
+                <div class="card-body">
+                  <div class="card">
+                    <div class="card-body">
+                      <H4> <b>Nouveau membre</b> </H4>
+                      <form action="/membre/insert" th:object="${membre}" method="get">
+                        <!-- class="form-control" -->
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Titre</label>
+                            <input type="text" name="nom" class="form-control" placeholder="Nom complet du membre" th:field="*{nom}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Date d'édition</label>
+                            <input type="date" name="dateNaissance" class="form-control" th:field="*{dateNaissance}">
+                        </div>
+
+                        <div class="mb-3  form-check">
+                            <label for="exampleInputEmail1" class="form-label">Type de membre</label>
+                            <div th:each='typeMembre : ${listTypeMembre}'>
+                                <label for="typeMembre" th:text="${typeMembre.getNomTypeMembre()}"></label>
+                                <input type="radio" name="idTypeMembre" class="form-check-input" 
+                                        th:value="${typeMembre.getIdTypeMembre()}"
+                                        th:checked="${typeMembre.idTypeMembre} == ${membre.typeMembre.idTypeMembre}">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Identifiant du nouveau Membre</label>
+                            <input type="text"  name="idMembre" th:value="idMembre" class="form-control" readonly th:field="*{idMembre}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">adresse</label>
+                            <input type="text" name="adresse" class="form-control" th:field="*{adresse}">
+                        </div>
+                        <div class="mb-3">
+                          <button type="submit" class="btn btn-primary">Valider</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+    </div>
+</body>
+</html>
